@@ -7,7 +7,6 @@ import it.unipd.tos.business.exception.TakeAwayBillException;
 import it.unipd.tos.model.MenuItem;
 import it.unipd.tos.model.itemType;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -32,24 +31,33 @@ public class PaninotecaTest {
 		assertEquals(1,mt.getPrice(),0);
 	}
 
-	
+	TakeAwayBillImpl orders= new TakeAwayBillImpl();
+	ArrayList<MenuItem> list= new ArrayList<MenuItem>() {
+		{
+			add(new MenuItem(itemType.Panino,"Primavera",10.0));
+			add(new MenuItem(itemType.Fritto,"Arancino",5.0));
+			add(new MenuItem(itemType.Bevanda,"Acqua",1.0));
+		}
+	};
 	
 	@Test
 	public void GetOrderedPrice_SimpleSum_CalculatedTot() throws TakeAwayBillException{
-		List<MenuItem> list= new ArrayList<MenuItem>();
-		TakeAwayBillImpl orders= new TakeAwayBillImpl();
-		list.add(new MenuItem(itemType.Panino,"Primavera",10.0));
-		list.add(new MenuItem(itemType.Fritto,"Arancino",5.0));
-		list.add(new MenuItem(itemType.Bevanda,"Acqua",1.0));
-        assertEquals(16.0,orders.getOrderPrice(list),0);
-        
+		assertEquals(16.0,orders.getOrderPrice(list),0);
 	}
 	
     @Test(expected= TakeAwayBillException.class)
     public void GetOrderedPrice_NegativePriceException_TakeAwayBillExceptionThrown() throws TakeAwayBillException  {
-    	List<MenuItem> list= new ArrayList<MenuItem>();
-    	TakeAwayBillImpl orders= new TakeAwayBillImpl();
     	list.add(new MenuItem(itemType.Bevanda,"negative",-1.0));
         orders.getOrderPrice(list);
     }
+    
+    @Test
+	public void GetOrderedPrice_DiscountMore5Sandwitch_CalculatedTotwithDiscount() throws TakeAwayBillException {
+    	list.add(new MenuItem(itemType.Panino,"Panino1",2.0));
+		list.add(new MenuItem(itemType.Panino,"Panino2",3.0));
+		list.add(new MenuItem(itemType.Panino,"Panino3",3.0));
+		list.add(new MenuItem(itemType.Panino,"Panino4",3.0));
+		list.add(new MenuItem(itemType.Panino,"Panino5",3.0));
+		assertEquals(29.0,orders.getOrderPrice(list),0);
+	}
 }
