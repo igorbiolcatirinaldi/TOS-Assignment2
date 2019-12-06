@@ -1,4 +1,5 @@
 /target/
+/target/maven-status/maven-compiler-plugin/
 /.settings/
 .classpath
 .project
