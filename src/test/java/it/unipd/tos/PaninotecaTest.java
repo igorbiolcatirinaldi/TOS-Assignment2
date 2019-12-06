@@ -75,4 +75,10 @@ public class PaninotecaTest {
         }
         orders.getOrderPrice(list);
     }
+    
+    @Test
+	public void GetOrderedPrice_TotMin10Euro_CalculatedTot() throws TakeAwayBillException {
+		list.remove(0);
+		assertEquals(6.5,orders.getOrderPrice(list),0);
+	}
 }

@@ -37,6 +37,7 @@ public class TakeAwayBillImpl implements TakeAwayBill {
         if(countTotPF>50) {
             tot*=sconto;
         }
+        if(tot<10) {tot+=0.5;}
         return tot;
     }
 }
