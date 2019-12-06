@@ -60,4 +60,11 @@ public class PaninotecaTest {
 		list.add(new MenuItem(itemType.Panino,"Panino5",3.0));
 		assertEquals(29.0,orders.getOrderPrice(list),0);
 	}
+    
+    @Test
+	public void testGetOrderedPrice_DiscountMore50Euro() throws TakeAwayBillException {
+		list.add(new MenuItem(itemType.Fritto,"Frittissimo",44.0));
+		list.add(new MenuItem(itemType.Panino,"Paninobello",40.0));
+		assertEquals(90.0,orders.getOrderPrice(list),0);
+	}
 }
