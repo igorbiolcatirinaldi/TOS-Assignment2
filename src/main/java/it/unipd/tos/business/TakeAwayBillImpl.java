@@ -16,6 +16,7 @@ public class TakeAwayBillImpl implements TakeAwayBill {
     public double getOrderPrice(List<MenuItem> itemsOrdered) throws TakeAwayBillException {
         double tot=0, mincostP=1000, countTotPF=0;
         int countP=0;
+        if(itemsOrdered.size()>30) {throw new TakeAwayBillException();}
         for(MenuItem i: itemsOrdered) {
             if(i.getPrice()<=0 || i.getPrice()>=1000) {
                 throw new TakeAwayBillException();

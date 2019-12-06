@@ -67,4 +67,12 @@ public class PaninotecaTest {
 		list.add(new MenuItem(itemType.Panino,"Paninobello",40.0));
 		assertEquals(90.0,orders.getOrderPrice(list),0);
 	}
+    
+    @Test(expected= TakeAwayBillException.class)
+	public void GetOrderedPrice_Max30ElementsError_TakeAwayBillExceptionThrown() throws TakeAwayBillException {
+        for(int i=0; i<30; i++) {
+            list.add(new MenuItem(itemType.Panino,"Panino",1.0));
+        }
+        orders.getOrderPrice(list);
+    }
 }
